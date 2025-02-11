@@ -1,4 +1,4 @@
-# HUGIN & MUNIN - Intelligente FPV-Drohnenplattform
+# 🐦‍⬛ HUGIN & MUNIN - Intelligente FPV-Drohnenplattform
 
 ## Über das Projekt
 
