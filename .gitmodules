@@ -4,3 +4,6 @@
 [submodule "jetson/mavfwd"]
 	path = jetson/mavfwd
 	url = https://github.com/OpenIPC/mavfwd.git
+[submodule "steamdeck/rtl8812eu"]
+	path = steamdeck/rtl8812eu
+	url = https://github.com/svpcom/rtl8812eu
