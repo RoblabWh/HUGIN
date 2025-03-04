@@ -1,0 +1,2 @@
+# Rename wifi nics based on mac address for persistant names
+SUBSYSTEM=="net", ATTR{address}=="78:22:88:5d:d4:c4", NAME="rtl8812eu"
