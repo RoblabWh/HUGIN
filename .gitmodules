@@ -7,3 +7,6 @@
 [submodule "steamdeck/rtl8812eu"]
 	path = steamdeck/rtl8812eu
 	url = https://github.com/svpcom/rtl8812eu
+[submodule "jetson/rtl88x2eu"]
+	path = jetson/rtl88x2eu
+	url = https://github.com/RoblabWh/rtl88x2eu.git
