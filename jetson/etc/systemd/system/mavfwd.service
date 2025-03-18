@@ -1,0 +1,10 @@
+[Unit]
+Description=Mavlink Forward
+
+[Service]
+Type=simple
+ExecStart=mavfwd --master /dev/ttyTHS1 --baudrate 115200 --out 127.0.0.1:14560 --in 127.0.0.1:14561
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
