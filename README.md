@@ -14,22 +14,22 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 | Komponenten                               | Beschreibung                            |
 |-------------------------------------------|-----------------------------------------|
 | **Flugsteuerung**                         |                                         |
-| Matek H743 Slim V3                        | Flight Controller mit H7-Prozessor      |
+| Matek H743 Slim V3 (STM32H743VIH6, DPS310, ICM42688, ICM42688)                        | Flight Controller mit H7-Prozessor      |
 | **ESC & Antrieb**                         |                                         |
 | Flywoo GOKU G55M 128K 3-6S 45A BLHeli_32 ESC | 45A 4-in-1 ESC für Motorsteuerung       |
 | DJI FPV Motoren                           | Brushless-Motoren der DJI FPV           |
-| DJI FPV Props                             | Propeller der DJI FPV                   |
+| DJI FPV Props (5328S 3-Blade)                            | Propeller der DJI FPV                   |
 | Skystars Propeller Mount Adapter          | Adapter für Pushed Montage              |
 | **Energieversorgung**                     |                                         |
-| 6S 1P VTC6                                | 6S Li-Ion Akku mit VTC6 Zellen          |
+| 6S 1P Sony / Murata Konion US18650VTC6 3120mAh - 30A                                | 6S Li-Ion Akku mit VTC6 Zellen          |
 | Pololu 12V, 15A Step-Down Regulator       | Spannungsregler 12V, 15A                |
 | Pololu 5V, 2.5A Step-Down Regulator       | Spannungsregler 5V, 2.5A                |
 | **Navigation & Sensoren**                 |                                         |
-| Ark Flow                                  | Optical Flow Sensor + Rangefinder       |
-| Matek M10Q-5883                           | GPS und Kompassmodul                    |
+| Ark Flow (PAW3902, S50LV85D, ICM-42688-P)                                  | Optical Flow Sensor + Rangefinder + IMU      |
+| Matek M10Q-5883 (u-blox M10, QMC5883L)                | GPS und Kompassmodul                    |
 | **Computer & Peripherie**                 |                                         |
-| Jetson Orin Nano                          | KI-gestützter Mini-Computer             |
-| Seedstudio A603 Carrier                   | Carrier Board für Jetson Orin Nano      |
+| NVIDIA Jetson Orin NX 16GB                | KI-gestützter Mini-Computer             |
+| Seedstudio A603 Carrier                   | Carrier Board für Jetson Orin NX      |
 | Luxonis OAK-FFC 4P                        | FFC-Kamera-Modul                        |
 | LB-Link BL-M8812EU2 (RTL8812EU-CG)        | WiFi-Modul mit RTL8812EU-CG Chip        |
 | Foxeer Lollipop 4 Plus UFL RHCP           |                                         |
