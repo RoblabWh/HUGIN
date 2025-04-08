@@ -14,9 +14,9 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 | Komponenten                               | Beschreibung                            |
 |-------------------------------------------|-----------------------------------------|
 | **Flugsteuerung**                         |                                         |
-| Matek H743 Slim                           | Flight Controller mit H7-Prozessor      |
+| Matek H743 Slim V3                        | Flight Controller mit H7-Prozessor      |
 | **ESC & Antrieb**                         |                                         |
-| Mamba F40 ESC                             | 40A 4-in-1 ESC für Motorsteuerung       |
+| Flywoo GOKU G55M 128K 3-6S 45A BLHeli_32 ESC | 45A 4-in-1 ESC für Motorsteuerung       |
 | DJI FPV Motoren                           | Brushless-Motoren der DJI FPV           |
 | DJI FPV Props                             | Propeller der DJI FPV                   |
 | Skystars Propeller Mount Adapter          | Adapter für Pushed Montage              |
