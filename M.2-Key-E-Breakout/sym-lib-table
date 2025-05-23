@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "M.2-Key-E-Breakout")(type "KiCad")(uri "${KIPRJMOD}/M.2-Key-E-Breakout.kicad_sym")(options "")(descr ""))
+)
