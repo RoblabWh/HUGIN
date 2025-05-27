@@ -4,9 +4,9 @@
 [submodule "jetson/mavfwd"]
 	path = jetson/mavfwd
 	url = https://github.com/OpenIPC/mavfwd.git
-[submodule "steamdeck/rtl8812eu"]
-	path = steamdeck/rtl8812eu
-	url = https://github.com/svpcom/rtl8812eu
 [submodule "jetson/rtl88x2eu"]
-	path = jetson/rtl88x2eu
+	path = rtl88x2eu
 	url = https://github.com/RoblabWh/rtl88x2eu.git
+[submodule "wfb-ng"]
+	path = wfb-ng
+	url = https://github.com/svpcom/wfb-ng.git
