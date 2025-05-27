@@ -35,6 +35,7 @@ cp -r "etc" /
 
 echo "## Enable systemd services ##"
 systemctl daemon-reload
+systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@gs
 
 echo "## Installation completed successfully ##"
