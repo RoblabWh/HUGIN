@@ -38,6 +38,9 @@ cp mavfwd /usr/local/bin
 echo "## Install configuration ##"
 cd "$script_path"
 cp -r "etc" /
+cp imx219_camera_overrides.isp /var/nvidia/nvcam/settings/camera_overrides.isp
+dtc -I dts -O dtb tegra234-p3767-wh-io-breakout.dts -o /boot/tegra234-p3767-wh-io-breakout.dtbo
+/opt/nvidia/jetson-io/config-by-hardware.py -n 3="WH IO Breakout"
 
 echo "## Enable systemd services ##"
 systemctl daemon-reload
