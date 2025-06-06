@@ -7,28 +7,16 @@
     compatible = "nvidia,p3768-0000+p3767-0001", "nvidia,p3767-0001", "nvidia,tegra234";
 
     fragment@0 {
-        target-path = "/bus@0/serial@3100000";
-
-        __overlay__ {
-            compatible = "nvidia,tegra194-hsuart";
-            dmas = <&gpcdma 16>, <&gpcdma 16>;
-            dma-names = "rx", "tx";
-        };
-    };
-
-    fragment@1 {
         target-path = "/bus@0/serial@3110000";
 
         __overlay__ {
             compatible = "nvidia,tegra194-hsuart";
-            dmas = <&gpcdma 18>, <&gpcdma 18>;
-            dma-names = "rx", "tx";
             reset-names = "serial";
             status = "okay";
         };
     };
 
-    fragment@2 {
+    fragment@1 {
         target-path = "/bus@0/serial@3140000";
 
         __overlay__ {
@@ -37,7 +25,7 @@
         };
     };
 
-    fragment@3 {
+    fragment@2 {
         target-path = "/aliases";
 
         __overlay__ {
