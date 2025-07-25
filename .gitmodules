@@ -10,3 +10,6 @@
 [submodule "wfb-ng"]
 	path = wfb-ng
 	url = https://github.com/svpcom/wfb-ng.git
+[submodule "jetson/hugin_ros2"]
+	path = jetson/hugin_ros2
+	url = git@github.com:RoblabWh/hugin_ros2.git

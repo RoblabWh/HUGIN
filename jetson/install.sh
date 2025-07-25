@@ -49,4 +49,13 @@ systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@drone
 systemctl enable --now mavfwd
 
+echo "## Install ROS in Distrobox ##"
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+distrobox create --image docker.io/library/ros:jazzy --name jazzy --hostname hugin-jazzy --yes
+distrobox upgrade jazzy
+
+docker cp --follow-link "$script_path/install_ros.sh" jazzy:/tmp/install_ros.sh
+docker cp --follow-link "$script_path/hugin_ros2" jazzy:/tmp/hugin_ros2
+distrobox enter jazzy -- /tmp/install_ros.sh
+
 echo "## Installation completed successfully ##"
