@@ -28,6 +28,8 @@ cd ~/hugin_ws
 rosdep update
 rosdep install --from-paths src --default-yes --ignore-src
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+ros2 run --prefix sudo mavros install_geographiclib_datasets.sh
+sudo usermod -aG dialout "$USER"
 
 echo '
 # Source ROS Jazzy setup script if available
