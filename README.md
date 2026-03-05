@@ -4,7 +4,7 @@
 
 Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des nordischen Gottes Odin. In der nordischen Mythologie fliegen [Hugin („Gedanke“) und Munin („Erinnerung“)](https://de.wikipedia.org/wiki/Hugin_und_Munin) täglich über die Welt, um Odin Wissen zu bringen. Unser Drohnenprojekt verfolgt ein ähnliches Ziel: Die Entwicklung einer autonomen und leistungsfähigen Drohnenplattform mit erweiterter Sensorik, KI-Verarbeitung und FPV-Funktionalität.
 
-![HUGIN](https://github.com/RoblabWh/HUGIN/blob/main/images/2025-02-10-10-55-34-681.jpg?raw=true)
+![HUGIN](images/2025-02-10-10-55-34-681.jpg)
 
 ## Drohnenübersicht
 
@@ -37,3 +37,51 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 | Foxeer Lollipop 4 Plus UFL RHCP           |                                         |
 | 20P FFC Cable (5CM, Reverse, 0.5mm)       | Flexkabel für Kamera oder Peripherie    |
 | 20P FFC Breakout Board                    | Adapterplatine für FFC-Kabel            |
+
+
+## Installation Jetson
+
+### Flash Jetson Linux
+
+#### Abhängigkeiten
+* Ubuntu 22.04 Host-Computer
+
+#### Durchführung
+1. (Optional) Neustart in die Recovery mit Login:
+    ```bash
+    sudo systemctl --reboot-argument=forced-recovery reboot
+    ```
+2. Folgen der [offiziellen Anleitung von seeed studio](https://wiki.seeedstudio.com/reComputer_A603_Flash_System/) für JP6.2, dabei zu beachten ist:
+    * Wenn das Jetson schon in der Recovery ist "Enter Force Recovery Mode" überspringen
+    * Nach "Step 2" sollte direkt der Standardnutzer erstellt werden (Passwort eintragen):
+        ```bash
+        sudo ./tools/l4t_create_default_user.sh -u roblabuser -p CHANGE_THIS -n hugin --accept-license
+        ```
+
+### Aufspielen der Software
+
+#### Abhängigkeiten
+* Jetpack 6.2 [L4T 36.4.3]
+
+#### Durchführung
+1. Mit SCP diesen gesamten Ordner auf das Jetson kopieren, e.g.:
+    ```bash
+    scp -r Hugin/. roblabuser@hugin.local:/tmp/hugin_setup
+    ```
+2. SSH auf das Jetson, e.g.:
+    ```bash
+    ssh roblabuser@hugin.local
+    ```
+3. Installationsskript ausführen
+    ```bash
+    sudo /tmp/hugin_setup/jetson/install.sh
+    ```
+4. Neustarten, um alle Änderungen zu übernehmen
+    ```bash
+    sudo reboot
+    ```
+
+## Installation SteamDeck
+!!TODO!!
+
+Aktuell nur im internen Mediawiki unter [Steam Deck]
