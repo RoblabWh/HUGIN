@@ -11,5 +11,11 @@
 	path = wfb-ng
 	url = https://github.com/svpcom/wfb-ng.git
 [submodule "jetson/hugin_ros2"]
-	path = jetson/hugin_ros2
+	path = jetson/ros/hugin_ros2
 	url = git@github.com:RoblabWh/hugin_ros2.git
+[submodule "jetson/ros/depthai-core"]
+	path = jetson/ros/depthai-core
+	url = https://github.com/luxonis/depthai-core.git
+[submodule "jetson/ros/librealsense"]
+	path = jetson/ros/librealsense
+	url = https://github.com/realsenseai/librealsense.git

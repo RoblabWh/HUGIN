@@ -16,9 +16,10 @@ systemctl restart nvfancontrol
 
 echo "## Install Base ##"
 apt-get update
-#NOTE: Bricks USB currently
-# apt-get upgrade --yes
-apt-get install --yes nvidia-jetpack python3-pip tmux rsync htop usbutils nano
+#NOTE: Bricks USB on upgrade so lock it for now
+apt-mark hold nvidia-l4t-*
+apt-get --yes upgrade
+apt-get --yes install python3-pip tmux rsync htop usbutils nano
 pip3 install -U jetson-stats
 
 echo "## Install RTL8812EU driver ##"
@@ -42,6 +43,21 @@ make
 systemctl stop mavfwd 2>/dev/null || true
 cp mavfwd /usr/local/bin
 
+echo "## Install RealSense udev rules ##"
+apt-get --yes install v4l-utils
+cd "$script_path/ros/librealsense"
+./scripts/setup_udev_rules.sh
+
+echo "## Setup NVIDIA Docker ##"
+apt-get --yes install nvidia-container curl jq
+curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+#NOTE: Docker versions greater than 27 is incompatible with Jetson Linux kernel version 5.15
+sh /tmp/get-docker.sh --no-autostart --version 27
+apt-mark hold docker-*
+nvidia-ctk runtime configure --runtime=docker
+jq '. + {"default-runtime": "nvidia"}' /etc/docker/daemon.json | tee /tmp/docker-daemon.json
+mv /tmp/docker-daemon.json /etc/docker/daemon.json
+
 echo "## Install configuration ##"
 cd "$script_path"
 cp -r "etc" /
@@ -55,15 +71,14 @@ systemctl daemon-reload
 systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@drone
 systemctl enable --now mavfwd
+systemctl enable --now docker
 
 echo "## Install ROS in Distrobox ##"
-curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh
 sudo -u "$SUDO_USER" distrobox create --image docker.io/library/ros:jazzy --name jazzy --hostname hugin-jazzy --yes
 sudo -u "$SUDO_USER" distrobox upgrade jazzy
-
-docker cp --follow-link "$script_path/install_ros.sh" jazzy:/tmp/install_ros.sh
-docker cp --follow-link "$script_path/hugin_ros2" jazzy:/tmp/hugin_ros2
-sudo -u "$SUDO_USER" distrobox enter jazzy -- /tmp/install_ros.sh
+docker cp --follow-link "$script_path/ros/." jazzy:/tmp/ros_setup
+sudo -u "$SUDO_USER" distrobox enter jazzy -- /tmp/ros_setup/install.sh
 
 echo "## Installation completed successfully ##"
 echo "You can now reboot the system to apply all changes."
