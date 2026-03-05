@@ -6,6 +6,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 script_path=$(dirname "$(realpath "$0")")
 
@@ -44,19 +45,10 @@ systemctl stop mavfwd 2>/dev/null || true
 cp mavfwd /usr/local/bin
 
 echo "## Install RealSense udev rules ##"
-apt-get --yes install v4l-utils
-cd "$script_path/ros/librealsense"
-./scripts/setup_udev_rules.sh
-
-echo "## Setup NVIDIA Docker ##"
-apt-get --yes install nvidia-container curl jq
-curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
-#NOTE: Docker versions greater than 27 is incompatible with Jetson Linux kernel version 5.15
-sh /tmp/get-docker.sh --no-autostart --version 27
-apt-mark hold docker-*
-nvidia-ctk runtime configure --runtime=docker
-jq '. + {"default-runtime": "nvidia"}' /etc/docker/daemon.json | tee /tmp/docker-daemon.json
-mv /tmp/docker-daemon.json /etc/docker/daemon.json
+cd "$script_path/ros/librealsense/config"
+cp 99-realsense-libusb.rules 99-realsense-d4xx-mipi-dfu.rules /etc/udev/rules.d/
+udevadm control --reload-rules
+udevadm trigger
 
 echo "## Install configuration ##"
 cd "$script_path"
@@ -71,9 +63,16 @@ systemctl daemon-reload
 systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@drone
 systemctl enable --now mavfwd
-systemctl enable --now docker
+
+echo "## Setup NVIDIA Docker ##"
+apt-get --yes install nvidia-container jq
+nvidia-ctk runtime configure --runtime=docker
+jq '. + {"default-runtime": "nvidia"}' /etc/docker/daemon.json | tee /tmp/docker-daemon.json
+mv /tmp/docker-daemon.json /etc/docker/daemon.json
+systemctl restart docker
 
 echo "## Install ROS in Distrobox ##"
+apt-get --yes install curl
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh
 sudo -u "$SUDO_USER" distrobox create --image docker.io/library/ros:jazzy --name jazzy --hostname hugin-jazzy --yes
 sudo -u "$SUDO_USER" distrobox upgrade jazzy

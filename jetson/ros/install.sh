@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 script_path=$(dirname "$(realpath "$0")")
 
@@ -12,7 +13,7 @@ sudo cmake --install build
 echo "## Build and Install librealsense ##"
 sudo apt-get --yes install git cmake libssl-dev freeglut3-dev libusb-1.0-0-dev pkg-config libgtk-3-dev unzip
 cd "$script_path/librealsense"
-cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=ON
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DFORCE_RSUSB_BACKEND=ON
 cmake --build build --parallel "$(nproc)"
 sudo cmake --install build
 
