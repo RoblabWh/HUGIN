@@ -66,7 +66,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 #### Durchführung
 1. Mit SCP diesen gesamten Ordner auf das Jetson kopieren, e.g.:
     ```bash
-    scp -r Hugin/. roblabuser@hugin.local:/tmp/hugin_setup
+    scp -r jetson/. roblabuser@hugin.local:/tmp/hugin_setup
     ```
 2. SSH auf das Jetson, e.g.:
     ```bash
@@ -74,7 +74,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
     ```
 3. Installationsskript ausführen
     ```bash
-    sudo /tmp/hugin_setup/jetson/install.sh
+    sudo /tmp/hugin_setup/install.sh
     ```
 4. Neustarten, um alle Änderungen zu übernehmen
     ```bash
@@ -85,3 +85,6 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 !!TODO!!
 
 Aktuell nur im internen Mediawiki unter [Steam Deck]
+
+## Installation FlightController
+!!TODO!!
