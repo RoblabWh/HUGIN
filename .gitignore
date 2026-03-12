@@ -1,0 +1,3 @@
+# ArduPilot firmware artifacts
+/ardupilot/*.apj
+/ardupilot/*.hex

@@ -52,7 +52,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
     sudo systemctl --reboot-argument=forced-recovery reboot
     ```
 2. Folgen der [offiziellen Anleitung von seeed studio](https://wiki.seeedstudio.com/reComputer_A603_Flash_System/) für JP6.2, dabei zu beachten ist:
-    * Wenn das Jetson schon in der Recovery ist "Enter Force Recovery Mode" überspringen
+    * Wenn das Jetson schon in der Recovery ist, "Enter Force Recovery Mode" überspringen
     * Nach "Step 2" sollte direkt der Standardnutzer erstellt werden (Passwort eintragen):
         ```bash
         sudo ./tools/l4t_create_default_user.sh -u roblabuser -p CHANGE_THIS -n hugin --accept-license
@@ -64,11 +64,11 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 * Jetpack 6.2 [L4T 36.4.3]
 
 #### Durchführung
-1. Mit SCP diesen gesamten Ordner auf das Jetson kopieren, e.g.:
+1. Mit SCP diesen gesamten Ordner auf das Jetson kopieren, z.B.:
     ```bash
     scp -r jetson/. roblabuser@hugin.local:/tmp/hugin_setup
     ```
-2. SSH auf das Jetson, e.g.:
+2. SSH auf das Jetson, z.B.:
     ```bash
     ssh roblabuser@hugin.local
     ```
@@ -87,4 +87,22 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 Aktuell nur im internen Mediawiki unter [Steam Deck]
 
 ## Installation FlightController
-!!TODO!!
+### Abhängigkeiten
+* [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-installation.html)
+* Docker
+
+### Durchführung
+1. Bauen der Firmware mittels Skript, z.B.:
+    ```bash
+    ardupilot/build_firmware.sh
+    ```
+2. Firmware nach offizieller Anleitung flashen, die *.apj und *.hex Dateien befinden sich in dem Ordner `ardupilot`
+    * [Bei Update](https://ardupilot.org/copter/docs/common-loading-firmware-onto-pixhawk.html)
+    * [Bei Erstinstallation](https://ardupilot.org/copter/docs/common-loading-firmware-onto-chibios-only-boards.html)
+3. Aufspielen der Parameter mittels MissionPlanner
+    1. Verbindung mit FlightController herstellen
+    2. Nach `CONFIG` -> `Full Parameter List` navigieren
+    3. Die *.param Datei aus dem `ardupilot` Ordner mit `Load from File` laden (hierbei können Meldungen auftreten, diese mit `OK` bestätigen)
+    4. Die Änderungen mit `Write Params` übernehmen (hierbei können wieder Meldungen auftreten, diese wieder mit `OK` bestätigen)
+    5. Den FlightController mittels `SETUP` -> `Mandatory Hardware` -> `Compass` -> `Reboot` neustarten
+    6. Die Schritte `ii.` bis `v.` wiederholen, bis keine Änderungen nach Schritt `iii.` mehr auftreten (erkennbar durch `Modified` Checkbox in `Full Parameter List`, meist nach drei Iterationen)
