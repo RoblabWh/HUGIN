@@ -38,4 +38,9 @@ systemctl daemon-reload
 systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@gs
 
+echo "## Configure firewall for WFB-NG forwarding ##"
+firewall-cmd --zone=trusted --add-interface=gs-wfb --permanent
+firewall-cmd --zone=public --add-masquerade --permanent
+firewall-cmd --reload
+
 echo "## Installation completed successfully ##"
