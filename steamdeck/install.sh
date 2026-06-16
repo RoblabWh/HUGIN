@@ -13,7 +13,6 @@ script_path=$(dirname "$(realpath "$0")")
 echo "## Setup Steam Deck for development ##"
 if [ "$(steamos-devmode status)" != "enabled" ]; then
   steamos-devmode enable --no-prompt
-  steamos-unminimize --dev --noconfirm
 fi
 systemctl enable --now sshd
 systemctl enable --now avahi-daemon
@@ -26,13 +25,14 @@ pacman -S --noconfirm dkms bc "$(pacman -Qqs linux-neptune | head -n 1)-headers"
 echo "## Install WFB-NG ##"
 cd "$script_path/wfb-ng"
 rm .git
-pacman -S --noconfirm python-setuptools python-twisted python-msgpack python-pyserial python-pyroute2 python-jinja
+pacman -S --noconfirm glibc libpcap libsodium python-setuptools python-twisted python-msgpack python-pyserial python-pyroute2 python-jinja
 make bdist
 tar xhf dist/*.tar.gz --no-same-owner --no-same-permissions -C /
 
 echo "## Install configuration ##"
 cd "$script_path"
-cp -r "etc" /
+cp -r etc /
+udevadm control --reload
 
 echo "## Setup WFB-NG services ##"
 systemctl daemon-reload
