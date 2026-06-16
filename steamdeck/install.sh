@@ -45,4 +45,26 @@ firewall-cmd --zone=trusted --add-interface=gs-wfb --permanent
 firewall-cmd --zone=public --add-masquerade --permanent
 firewall-cmd --reload
 
+echo "## Configure GSM modem ##"
+systemctl enable --now ModemManager
+if nmcli connection show roblab-LTE >/dev/null 2>&1; then
+  nmcli connection delete roblab-LTE
+fi
+i=0
+if ! nmcli device show cdc-wdm0 >/dev/null 2>&1; then
+  printf "Waiting for modem to connect"
+  while ! nmcli device show cdc-wdm0 >/dev/null 2>&1 && [ $i -lt 10 ]; do
+    sleep 3
+    printf "."
+    i=$((i + 1))
+  done
+  printf "\n"
+fi
+if [ "$i" -lt 10 ]; then
+  nmcli device connect cdc-wdm0
+  nmcli connection modify cdc-wdm0 connection.id roblab-LTE
+else
+  printf '\033[31m%s\033[0m\n' "Modem did not connect within expected time. Please check modem connection and try again." >&2
+fi
+
 echo "## Installation completed successfully ##"
