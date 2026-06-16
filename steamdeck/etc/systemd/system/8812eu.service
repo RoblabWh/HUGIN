@@ -1,0 +1,11 @@
+[Unit]
+Description=Load Realtek 8812eu kernel module
+Before=wifibroadcast.service
+After=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=modprobe 8812eu
+
+[Install]
+WantedBy=wifibroadcast.service

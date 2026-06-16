@@ -34,8 +34,9 @@ echo "## Install configuration ##"
 cd "$script_path"
 cp -r "etc" /
 
-echo "## Enable systemd services ##"
+echo "## Setup WFB-NG services ##"
 systemctl daemon-reload
+systemctl enable --now 8812eu
 systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@gs
 
