@@ -64,7 +64,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 * Jetpack 6.2 [L4T 36.4.3]
 
 #### Durchführung
-1. Mit SCP diesen gesamten Ordner auf das Jetson kopieren, z.B.:
+1. Mit SCP den relevanten Ordner auf das Jetson kopieren, z.B.:
     ```bash
     scp -r jetson/. roblabuser@hugin.local:/tmp/hugin_setup
     ```
@@ -82,9 +82,47 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
     ```
 
 ## Installation SteamDeck
-!!TODO!!
+### Abhängigkeiten
+* SteamOS 3.7
+* SteamDeck Wireless Module
 
-Aktuell nur im internen Mediawiki unter [Steam Deck]
+### Durchführung
+#### Grundeinrichtung direkt auf dem Steam Deck
+1. In Steam anmelden
+2. Wechsel zum Desktopmodus
+    * Steam -> Power -> Switch to Desktop
+3. Tastaturlayout einstellen
+    * Settings -> Input Devices -> Keyboard -> Layouts
+4. Mit lokalem Netzwerk verbinden
+5. Root-Passwort erstellen
+    ```bash
+    passwd
+    ```
+6. Systemd Services für Remote-Verbindung aktivieren
+    ```bash
+    sudo systemctl enable --now sshd
+    sudo systemctl enable --now avahi-daemon
+    ```
+7. Desktopmodus als Standard setzen
+    ```bash
+    steamos-session-select plasma-wayland-persistent
+    ```
+#### Automatische Einrichtung der restlichen Komponenten und Treiber
+1. Das Wireless Modul anschließen
+2. Mit rsync den relevanten Ordner auf das Steam Deck kopieren:
+    ```bash
+    rsync -auL --info=progress2 steamdeck/. steamdeck:hugin_setup
+    ```
+3. SSH auf das Steam Deck:
+    ```bash
+    ssh deck@steamdeck.local
+    ```
+4. Installationsskript ausführen
+    ```bash
+    sudo ~/hugin_setup/install.sh
+    ```
+#### QGroundControl Konfiguration
+!!TODO!!
 
 ## Installation FlightController
 ### Abhängigkeiten
