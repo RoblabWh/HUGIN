@@ -1,0 +1,27 @@
+[$Version]
+update_info=kwinrules.upd:replace-placement-string-to-enum,kwinrules.upd:use-virtual-desktop-ids
+
+[9bd6e503-ac60-4e7b-9131-0b10c84b37eb]
+Description=Steam On-screen Keyboard
+above=true
+aboverule=2
+skiptaskbar=true
+skiptaskbarrule=2
+title=Steam Keyboard
+titlematch=2
+type=16
+typerule=2
+wmclass=steam
+wmclasscomplete=true
+wmclassmatch=2
+
+[3c2e4097-9c64-47bd-b9de-951de874ddb9]
+Description=QGroundControl Fullscreen
+fullscreen=true
+fullscreenrule=3
+wmclass=QGroundControl
+wmclassmatch=2
+
+[General]
+count=2
+rules=3c2e4097-9c64-47bd-b9de-951de874ddb9,9bd6e503-ac60-4e7b-9131-0b10c84b37eb

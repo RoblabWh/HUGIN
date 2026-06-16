@@ -67,4 +67,14 @@ else
   printf '\033[31m%s\033[0m\n' "Modem did not connect within expected time. Please check modem connection and try again." >&2
 fi
 
+echo "## Install QGroundControl ##"
+#TODO: Currently daily builds are needed for the RTK NTRIP client. Update to stable release once available.
+curl -fL https://d176tv9ibo4jno.cloudfront.net/builds/master/QGroundControl-x86_64.AppImage -o /usr/local/bin/QGroundControl
+chmod +x /usr/local/bin/QGroundControl
+QGroundControl --appimage-extract
+cp -r squashfs-root/usr/share/icons squashfs-root/usr/share/applications /usr/local/share
+rm -r squashfs-root
+update-desktop-database
+ln -sf /usr/local/share/applications/org.mavlink.qgroundcontrol.desktop /home/deck/Desktop/QGroundControl
+
 echo "## Installation completed successfully ##"
