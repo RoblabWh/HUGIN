@@ -25,6 +25,7 @@ pacman -S --noconfirm dkms bc "$(pacman -Qqs linux-neptune | head -n 1)-headers"
 
 echo "## Install WFB-NG ##"
 cd "$script_path/wfb-ng"
+rm .git
 pacman -S --noconfirm python-setuptools python-twisted python-msgpack python-pyserial python-pyroute2 python-jinja
 make bdist
 tar xhf dist/*.tar.gz --no-same-owner --no-same-permissions -C /

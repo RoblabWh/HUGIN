@@ -30,6 +30,7 @@ apt-get install --yes dkms
 
 echo "## Install WFB-NG ##"
 cd "$script_path/wfb-ng"
+rm .git
 apt-get --yes install python3-all python3-all-dev libpcap-dev libsodium-dev libevent-dev python3-pip python3-pyroute2 python3-msgpack \
   python3-twisted python3-serial python3-jinja2 iw virtualenv debhelper dh-python fakeroot build-essential \
   libgstrtspserver-1.0-dev socat git
