@@ -20,12 +20,12 @@ apt-get update
 #NOTE: Bricks USB on upgrade so lock it for now
 apt-mark hold nvidia-l4t-*
 apt-get --yes upgrade
-apt-get --yes install python3-pip tmux rsync htop usbutils nano
-pip3 install -U jetson-stats
+apt-get --yes install tmux htop usbutils nano python3-pip
+pip3 install --break-system-packages -U jetson-stats
 
 echo "## Install RTL8812EU driver ##"
 cd "$script_path/rtl88x2eu"
-apt-get install --yes dkms
+apt-get install --yes dkms bc
 ./dkms-install.sh
 
 echo "## Install WFB-NG ##"
@@ -41,6 +41,7 @@ mv /usr/local/bin/wfb* /usr/bin
 
 echo "## Install MAVFWD ##"
 cd "$script_path/mavfwd"
+apt-get --yes install libevent-dev
 make
 systemctl stop mavfwd 2>/dev/null || true
 cp mavfwd /usr/local/bin
@@ -51,18 +52,12 @@ cp 99-realsense-libusb.rules 99-realsense-d4xx-mipi-dfu.rules /etc/udev/rules.d/
 udevadm control --reload-rules
 udevadm trigger
 
-echo "## Setup NVIDIA Docker ##"
-systemctl stop docker.socket 2>/dev/null || true
-systemctl stop docker.service 2>/dev/null || true
-apt-get --yes remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
-apt-get --yes install nvidia-container curl jq
-curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
-#NOTE: Docker versions greater than 27 is incompatible with Jetson Linux kernel version 5.15
-sh /tmp/get-docker.sh --no-autostart --version 27
-apt-mark hold docker-*
+echo "## Setup Docker Environment ##"
+apt-get --yes install distrobox nvidia-container-toolkit curl jq
 nvidia-ctk runtime configure --runtime=docker
 jq '. + {"default-runtime": "nvidia"}' /etc/docker/daemon.json | tee /tmp/docker-daemon.json
 mv /tmp/docker-daemon.json /etc/docker/daemon.json
+systemctl restart docker
 
 echo "## Install configuration ##"
 cd "$script_path"
@@ -77,14 +72,10 @@ systemctl daemon-reload
 systemctl enable --now wifibroadcast
 systemctl enable --now wifibroadcast@drone
 systemctl enable --now mavfwd
-systemctl enable --now docker
 
 echo "## Install ROS in Distrobox ##"
-curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh
-sudo -u "$SUDO_USER" distrobox create --image docker.io/library/ros:jazzy --name jazzy --hostname hugin-jazzy --yes
-sudo -u "$SUDO_USER" distrobox upgrade jazzy
-docker cp --follow-link "$script_path/ros/." jazzy:/tmp/ros_setup
-sudo -u "$SUDO_USER" distrobox enter jazzy -- /tmp/ros_setup/install.sh
+sudo -u "$SUDO_USER" distrobox create --yes --image nvcr.io/nvidia/tensorrt:26.06-py3 --name jazzy --hostname hugin-jazzy
+sudo -u "$SUDO_USER" distrobox enter jazzy -- "$script_path/ros/install.sh"
 
 echo "## Installation completed successfully ##"
 echo "You can now reboot the system to apply all changes."

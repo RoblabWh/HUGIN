@@ -16,3 +16,9 @@
 [submodule "jetson/ros/librealsense"]
 	path = jetson/ros/librealsense
 	url = https://github.com/realsenseai/librealsense.git
+[submodule "jetson/ros/opencv"]
+	path = jetson/ros/opencv
+	url = https://github.com/opencv/opencv.git
+[submodule "jetson/ros/opencv_contrib"]
+	path = jetson/ros/opencv_contrib
+	url = https://github.com/opencv/opencv_contrib.git

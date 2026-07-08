@@ -61,12 +61,12 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 ### Aufspielen der Software
 
 #### Abhängigkeiten
-* Jetpack 6.2 [L4T 36.4.3]
+* Jetpack 7.2 [L4T 39.2.0]
 
 #### Durchführung
-1. Mit SCP den relevanten Ordner auf das Jetson kopieren, z.B.:
+1. Mit rsync den relevanten Ordner auf das Jetson kopieren, z.B.:
     ```bash
-    scp -r jetson/. roblabuser@hugin.local:/tmp/hugin_setup
+    rsync -auL --delete --info=progress2 jetson/. roblabuser@hugin.local:hugin_setup
     ```
 2. SSH auf das Jetson, z.B.:
     ```bash
@@ -74,7 +74,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
     ```
 3. Installationsskript ausführen
     ```bash
-    sudo /tmp/hugin_setup/install.sh
+    sudo ~/hugin_setup/install.sh
     ```
 4. Neustarten, um alle Änderungen zu übernehmen
     ```bash
@@ -111,7 +111,7 @@ Hugin und Munin sind zwei intelligente FPV-Drohnen, benannt nach den Raben des n
 1. Das Wireless Modul anschließen
 2. Mit rsync den relevanten Ordner auf das Steam Deck kopieren:
     ```bash
-    rsync -auL --info=progress2 steamdeck/. steamdeck:hugin_setup
+    rsync -auL --delete --info=progress2 steamdeck/. steamdeck:hugin_setup
     ```
 3. SSH auf das Steam Deck:
     ```bash
