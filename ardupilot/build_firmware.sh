@@ -2,11 +2,10 @@
 set -e
 
 script_path=$(dirname "$(realpath "$0")")
-ap_version="${1-4.6.3}"
-ap_type="Copter"
+ap_version="${2-Copter}-${1-4.7.0}"
 ap_path="/tmp/ardupilot-$ap_version"
 
-git clone --recursive --depth 1 --branch "${ap_type}-${ap_version}" https://github.com/ArduPilot/ardupilot.git "$ap_path"
+git clone --recursive --depth 1 --branch "$ap_version" https://github.com/ArduPilot/ardupilot.git "$ap_path"
 cd "$ap_path"
 git apply "$script_path/enable-mavlink.patch"
 docker build . -t ardupilot --build-arg USER_UID="$(id -u)" --build-arg USER_GID="$(id -g)"
