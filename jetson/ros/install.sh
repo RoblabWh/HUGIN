@@ -46,11 +46,12 @@ cp --recursive --dereference "$script_path/hugin_ros2" ~/hugin_ws/src
 cd ~/hugin_ws
 sudo rosdep init
 rosdep update
-rosdep install --from-paths src --default-yes --ignore-src --skip-keys="libopencv-dev python3-opencv depthai librealsense2"
+rosdep install --from-paths src --default-yes --ignore-src --skip-keys="libopencv-dev libopencv-contrib-dev python3-opencv depthai librealsense2"
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ros2 run --prefix sudo mavros install_geographiclib_datasets.sh
 sudo groupadd --gid "$(getent group gpio | cut -d: -f3)" gpio
-sudo usermod --append --groups dialout,gpio "$USER"
+sudo groupadd --gid "$(getent group render | cut -d: -f3)" render
+sudo usermod --append --groups dialout,gpio,render,video "$USER"
 
 echo '
 # Source ROS Jazzy setup script if available
