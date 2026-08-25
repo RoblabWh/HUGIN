@@ -49,7 +49,8 @@ rosdep update
 rosdep install --from-paths src --default-yes --ignore-src --skip-keys="libopencv-dev python3-opencv depthai librealsense2"
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ros2 run --prefix sudo mavros install_geographiclib_datasets.sh
-sudo usermod --append --groups dialout "$USER"
+sudo groupadd --gid "$(getent group gpio | cut -d: -f3)" gpio
+sudo usermod --append --groups dialout,gpio "$USER"
 
 echo '
 # Source ROS Jazzy setup script if available

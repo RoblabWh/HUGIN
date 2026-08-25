@@ -65,7 +65,7 @@ cp -r "etc" /
 cp imx219_camera_overrides.isp /var/nvidia/nvcam/settings/camera_overrides.isp
 dtc -I dts -O dtb tegra234-p3767-wh-io-breakout.dts -o /boot/tegra234-p3767-wh-io-breakout.dtbo
 /opt/nvidia/jetson-io/config-by-hardware.py -n 3="WH IO Breakout"
-usermod -aG dialout,docker "$SUDO_USER"
+usermod -aG dialout,docker,gpio "$SUDO_USER"
 
 echo "## Enable systemd services ##"
 systemctl daemon-reload

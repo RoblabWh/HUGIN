@@ -33,4 +33,13 @@
             serial3 = "/bus@0/serial@3140000";
         };
     };
+
+    fragment@3 {
+        target-path = "/bus@0/pwm@3280000";
+
+        __overlay__ {
+            assigned-clocks = <&bpmp 105>;
+            assigned-clock-parents = <&bpmp 14>;
+        };
+    };
 };
