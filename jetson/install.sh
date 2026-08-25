@@ -20,6 +20,7 @@ apt-get update
 #NOTE: Bricks USB on upgrade so lock it for now
 apt-mark hold nvidia-l4t-*
 apt-get --yes upgrade
+apt-get --yes install nvidia-l4t-gstreamer
 apt-get --yes install tmux htop usbutils nano python3-pip
 pip3 install --break-system-packages -U jetson-stats
 
