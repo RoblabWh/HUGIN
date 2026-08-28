@@ -1,13 +1,13 @@
-From 0f8f044bb1de020cf45beaf8349f5d461ffb67d0 Mon Sep 17 00:00:00 2001
-From: Niklas Digakis <niklas.digakis@studmail.w-hs.de>
-Date: Fri, 6 Jun 2025 19:26:44 +0200
+From 82b6c9068cb5fb8e92694b3cc42c8d40618d9039 Mon Sep 17 00:00:00 2001
+From: Niklas Digakis <niklas.digakis@w-hs.de>
+Date: Fri, 28 Aug 2026 14:56:32 +0200
 Subject: [PATCH] configure mavlink for hugin
 
 ---
- libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/hwdef.dat | 2 ++
- .../hwdef/MatekH743-bdshot/message-intervals-chan.notes   | 8 ++++++++
- .../hwdef/MatekH743-bdshot/message-intervals-chan.txt     | 4 ++++
- 3 files changed, 14 insertions(+)
+ .../AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/hwdef.dat    |  2 ++
+ .../MatekH743-bdshot/message-intervals-chan.notes      | 10 ++++++++++
+ .../hwdef/MatekH743-bdshot/message-intervals-chan.txt  |  5 +++++
+ 3 files changed, 17 insertions(+)
  create mode 100644 libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.notes
  create mode 100644 libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.txt
 
@@ -23,10 +23,10 @@ index ffd296c735..4fdcfbef0f 100644
 +ROMFS message-intervals-chan2.txt libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.txt
 diff --git a/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.notes b/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.notes
 new file mode 100644
-index 0000000000..acdd5cb78a
+index 0000000000..26686de794
 --- /dev/null
 +++ b/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.notes
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,10 @@
 +# HIGHRES_IMU 200Hz
 +105 5
 +# GPS_RAW_INT 5Hz
@@ -35,16 +35,19 @@ index 0000000000..acdd5cb78a
 +31 50
 +# LOCAL_POSITION_NED 20Hz
 +32 50
++# BATTERY_STATUS 1Hz
++147 1000
 diff --git a/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.txt b/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.txt
 new file mode 100644
-index 0000000000..8743b3c7e9
+index 0000000000..16fa2d0894
 --- /dev/null
 +++ b/libraries/AP_HAL_ChibiOS/hwdef/MatekH743-bdshot/message-intervals-chan.txt
-@@ -0,0 +1,4 @@
+@@ -0,0 +1,5 @@
 +105 5
 +24 200
 +31 50
 +32 50
++147 1000
 -- 
-2.34.1
+2.55.0
 
