@@ -11,7 +11,7 @@ curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-a
 sudo dpkg -i /tmp/ros2-apt-source.deb
 sudo apt-get update
 sudo apt-get --yes upgrade
-sudo apt-get --yes install ros-jazzy-ros-base ros-dev-tools
+sudo apt-get --yes install ros-jazzy-ros-base ros-dev-tools ros-jazzy-rmw-zenoh-cpp
 
 echo "## Build and Install OpenCV ##"
 sudo apt-get --yes install pkg-config python3-dev python3-numpy
@@ -58,6 +58,7 @@ echo '
 if [ -f /opt/ros/jazzy/setup.bash ]; then
   . /opt/ros/jazzy/setup.bash
   export ROS_DOMAIN_ID=37
+  export RMW_IMPLEMENTATION=rmw_zenoh_cpp
   # Source Hugin Workspace if available
   if [ -f ~/hugin_ws/install/setup.bash ]; then
     . ~/hugin_ws/install/setup.bash

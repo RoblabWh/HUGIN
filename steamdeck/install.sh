@@ -43,6 +43,7 @@ systemctl enable --now wifibroadcast@gs
 echo "## Configure firewall for WFB-NG forwarding ##"
 firewall-cmd --zone=trusted --add-interface=gs-wfb --permanent
 firewall-cmd --zone=public --add-masquerade --permanent
+firewall-cmd --zone=public --add-forward-port=port=7447:proto=tcp:toaddr=10.5.0.2 --permanent
 firewall-cmd --reload
 
 echo "## Configure GSM modem ##"

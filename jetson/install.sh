@@ -78,5 +78,10 @@ echo "## Install ROS in Distrobox ##"
 sudo -u "$SUDO_USER" distrobox create --yes --image nvcr.io/nvidia/tensorrt:26.06-py3 --name jazzy --hostname hugin-jazzy
 sudo -u "$SUDO_USER" distrobox enter jazzy -- "$script_path/ros/install.sh"
 
+echo "## Setup ROS2 Zenoh Router ##"
+docker rm --force ros2_zenoh_router 2>/dev/null || true
+docker build --tag ros2_zenoh_router:jazzy - < "$script_path/ros2_zenoh_router.dockerfile"
+docker run --detach --restart unless-stopped --name ros2_zenoh_router --network host --ipc host ros2_zenoh_router:jazzy
+
 echo "## Installation completed successfully ##"
 echo "You can now reboot the system to apply all changes."
