@@ -1,0 +1,18 @@
+[Unit]
+Description=Bring up ROS2 Software Stack
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=exec
+User=roblabuser
+Environment=ROS_DOMAIN_ID=37
+Environment=RMW_IMPLEMENTATION=rmw_zenoh_cpp
+ExecStart=distrobox enter --no-tty jazzy -- bash -c "source ~/hugin_ws/install/setup.bash && cut -d' ' -f4 /proc/self/stat > /tmp/hugin_bringup.pid && exec ros2 launch hugin_launch bringup.launch.py"
+ExecStop=/bin/bash -c 'pid=$$(cat /tmp/hugin_bringup.pid) && kill -INT $$pid && tail --pid=$$pid -f /dev/null'
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
